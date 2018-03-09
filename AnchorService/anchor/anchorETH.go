@@ -1,8 +1,8 @@
 package anchor
 
 import (
-	"AnchorService/common"
-	"AnchorService/util"
+	"github.com/compasses/GOProjects/AnchorService/common"
+	"github.com/compasses/GOProjects/AnchorService/util"
 	"bytes"
 	"encoding/hex"
 	"encoding/json"
@@ -60,14 +60,14 @@ func (anchorETH *AnchorETH) doTransaction(record *anchor.AnchorRecord) error {
 	// unlock account
 	err := anchorETH.unlockAccount()
 	if err != nil {
-		log.Error("Cannot unlock account, cannot anchor now...")
+		log.Error("Cannot unlock account, cannot anchor now...", "err", err)
 		return errors.New("Error")
 	}
 
 	// do transaction with data
 	txHashStr, err := anchorETH.sendTransaction(record)
 	if err != nil {
-		log.Error("Send transaction error ", err)
+		log.Error("Send transaction error ", "err", err)
 		return errors.New("Error")
 	}
 
@@ -128,6 +128,7 @@ func (eth *AnchorETH) getTransactionReceipt(txHashStr string) (*common.EthTxRece
 		return nil, fmt.Errorf("Http New Request error %s", err)
 	}
 
+	httpReq.Header.Set("Content-Type", "application/json")
 	httpClient := http.DefaultClient
 	resp, err := httpClient.Do(httpReq)
 	if err != nil || resp.StatusCode != 200 {
@@ -194,6 +195,7 @@ func (eth *AnchorETH) sendTransaction(record *anchor.AnchorRecord) (*string, err
 		return nil, fmt.Errorf("Http New Request error %s", err)
 	}
 
+	httpReq.Header.Set("Content-Type", "application/json")
 	httpClient := http.DefaultClient
 	resp, err := httpClient.Do(httpReq)
 	if err != nil || resp.StatusCode != 200 {
@@ -220,6 +222,8 @@ func (eth *AnchorETH) sendTransaction(record *anchor.AnchorRecord) (*string, err
 }
 
 func (eth *AnchorETH) unlockAccount() error {
+	log.Debug("Account config:", "err", fmt.Errorf("Account address:%s, account pass:%s", eth.accountAddress, eth.accountPass))
+
 	unlockReqJson := util.NewJSON2Request("personal_unlockAccount", 1, []interface{}{eth.accountAddress, eth.accountPass, 3600})
 	unlockReq, err := util.EncodeJSON(unlockReqJson)
 	if err != nil {
@@ -231,6 +235,7 @@ func (eth *AnchorETH) unlockAccount() error {
 		return fmt.Errorf("Http New Request error %s", err)
 	}
 
+	httpReq.Header.Set("Content-Type", "application/json")
 	httpClient := http.DefaultClient
 	resp, err := httpClient.Do(httpReq)
 	if err != nil || resp.StatusCode != 200 {

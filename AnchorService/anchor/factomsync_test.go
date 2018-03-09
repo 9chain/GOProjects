@@ -1,8 +1,8 @@
 package anchor_test
 
 import (
-	"AnchorService/anchor"
-	"AnchorService/common"
+	"github.com/compasses/GOProjects/AnchorService/anchor"
+	"github.com/compasses/GOProjects/AnchorService/common"
 	"encoding/json"
 	"fmt"
 	"github.com/FactomProject/factom"

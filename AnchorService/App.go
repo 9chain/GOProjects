@@ -1,9 +1,9 @@
 package main
 
 import (
-	"AnchorService/anchor"
-	"AnchorService/common"
-	"AnchorService/util"
+	"github.com/compasses/GOProjects/AnchorService/anchor"
+	"github.com/compasses/GOProjects/AnchorService/common"
+	"github.com/compasses/GOProjects/AnchorService/util"
 	"github.com/urfave/cli"
 	"os"
 	"os/signal"

@@ -1,9 +1,9 @@
 package anchor_test
 
 import (
-	"AnchorService/anchor"
-	"AnchorService/common"
-	"AnchorService/util"
+	"github.com/compasses/GOProjects/AnchorService/anchor"
+	"github.com/compasses/GOProjects/AnchorService/common"
+	"github.com/compasses/GOProjects/AnchorService/util"
 	"bytes"
 	"encoding/hex"
 	"encoding/json"

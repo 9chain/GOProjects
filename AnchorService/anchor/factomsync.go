@@ -1,8 +1,8 @@
 package anchor
 
 import (
-	"AnchorService/common"
-	"AnchorService/util"
+	"github.com/compasses/GOProjects/AnchorService/common"
+	"github.com/compasses/GOProjects/AnchorService/util"
 	"bytes"
 	"encoding/json"
 	"fmt"
